@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================================
 #  Setup Script – Linux PrivEsc Automation Toolkit
-#  Author: Hrushikesh Chaudhari | github.com/hrushikesh1199
+#  Author: Hrushikesh Pawar | github.com/hrushikesh1199
 # ============================================================================
 
 GREEN='\033[0;32m' YELLOW='\033[1;33m' CYAN='\033[0;36m' RED='\033[0;31m' NC='\033[0m'
