@@ -41,7 +41,7 @@ BANNER = r"""
   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝
 
   {}Linux Privilege Escalation Automation Toolkit v1.0{}
-  {}Author : Hrushikesh Chaudhari{}
+  {}Author : Hrushikesh Pawar{}
   {}GitHub : https://github.com/hrushikesh1199{}
   {}Purpose: Authorized Security Auditing | Red-Blue Team{}
 
