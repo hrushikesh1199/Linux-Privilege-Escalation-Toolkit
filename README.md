@@ -345,7 +345,7 @@ python3 -m pytest tests/ -v
 
 ## 👨‍💻 Author
 
-**Hrushikesh Chaudhari**  
+**Hrushikesh Pawar**  
 B.E. Electronics & Telecommunication | JSPM's JSCOE, Pune  
 Cybersecurity Enthusiast | SOC Analyst | Web App Pentester
 
