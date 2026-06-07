@@ -350,7 +350,7 @@ B.E. Electronics & Telecommunication | JSPM's JSCOE, Pune
 Cybersecurity Enthusiast | SOC Analyst | Web App Pentester
 
 [![GitHub](https://img.shields.io/badge/GitHub-hrushikesh1199-black?style=flat&logo=github)](https://github.com/hrushikesh1199)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/hrushikesh-chaudhari)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hrushikesh20/)
 
 ---
 
