@@ -1,0 +1,24 @@
+{
+  "scan": "Linux Privilege Escalation Audit",
+  "status": "completed",
+  "findings": [
+    {
+      "type": "SUID",
+      "severity": "High",
+      "description": "Example SUID finding detected during security audit.",
+      "recommendation": "Review the binary and remove unnecessary SUID permissions."
+    },
+    {
+      "type": "File Permissions",
+      "severity": "Medium",
+      "description": "Example writable file detected.",
+      "recommendation": "Restrict write permissions according to the principle of least privilege."
+    }
+  ],
+  "summary": {
+    "total_findings": 2,
+    "high": 1,
+    "medium": 1,
+    "low": 0
+  }
+}
