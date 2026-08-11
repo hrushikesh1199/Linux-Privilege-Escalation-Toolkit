@@ -374,3 +374,17 @@ MIT License – See [LICENSE](LICENSE) for details.
 ⭐ Star this repo if it helped you learn!  
 🔐 Use responsibly. Hack ethically.
 </div>
+
+
+
+
+## Key Features
+
+- SUID and SGID binary detection
+- Dangerous file permission analysis
+- Cron job security checks
+- Systemd service analysis
+- Sudo configuration auditing
+- Kernel vulnerability and CVE checks
+- Automated security findings
+- JSON and TXT report generation
