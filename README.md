@@ -336,6 +336,16 @@ python3 -m pytest tests/ -v
 - 🔗 [NVD – NIST](https://nvd.nist.gov) – National Vulnerability Database
 - 🔗 [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) – Hardening guides
 
+
+### Security Recommendations
+
+- Remove unnecessary SUID/SGID permissions
+- Restrict writable system files
+- Review cron jobs for unsafe configurations
+- Audit sudo permissions
+- Keep the Linux kernel updated
+- Review system service permissions
+
 ### CVE References
 - 🔗 [Dirty Pipe (CVE-2022-0847)](https://dirtypipe.cm4all.com)
 - 🔗 [Dirty COW (CVE-2016-5195)](https://dirtycow.ninja)
