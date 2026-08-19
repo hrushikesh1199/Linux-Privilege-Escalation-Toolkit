@@ -87,31 +87,31 @@ class SUIDScanner:
     def __init__(self):
         self.findings = {}
 
-   def _run(self, cmd):
-    try:
-        result = subprocess.run(
-            cmd,
-            shell=True,
-            capture_output=True,
-            text=True,
-            timeout=60
-        )
-        return result.stdout.strip()
-    except subprocess.TimeoutExpired:
-        warn(f"Command timed out: {cmd}")
-        return ""
-    except OSError as exc:
-        warn(f"Command execution failed: {exc}")
-        return ""
+    def _run(self, cmd):
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
+            return result.stdout.strip()
+        except subprocess.TimeoutExpired:
+            warn(f"Command timed out: {cmd}")
+            return ""
+        except OSError as exc:
+            warn(f"Command execution failed: {exc}")
+            return ""
+
     def scan(self):
         data = {
-            'suid_binaries'         : [],
-            'sgid_binaries'         : [],
-            'exploitable_suid'      : [],
-            'unexpected_suid'       : [],
-            'capabilities'          : [],
+            'suid_binaries': [],
+            'sgid_binaries': [],
+            'exploitable_suid': [],
+            'unexpected_suid': [],
+            'capabilities': [],
         }
-
         # SUID binaries
         suid_raw = self._run("find / -perm -4000 -type f 2>/dev/null")
         for path in suid_raw.splitlines():
