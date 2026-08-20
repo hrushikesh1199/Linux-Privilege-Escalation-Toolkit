@@ -10,6 +10,15 @@ import subprocess
 
 class TestSystemInfo(unittest.TestCase):
 
+    def test_total_findings_empty(self):
+        generator = ReportGenerator(
+            {},
+            datetime.now(),
+            0.0
+        )
+
+        self.assertEqual(generator.total_findings(), 0)
+
     def test_scan_returns_dictionary(self):
         scanner = SystemInfoScanner()
         result = scanner.scan()
