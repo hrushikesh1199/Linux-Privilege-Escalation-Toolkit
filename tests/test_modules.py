@@ -1,11 +1,11 @@
 import unittest
+from datetime import datetime
 
 from modules.system_info import SystemInfoScanner
 from modules.suid_scanner import SUIDScanner
+from modules.report_generator import ReportGenerator
 from unittest.mock import patch
 import subprocess
-from modules.report_generator import ReportGenerator
-from datetime import datetime
 
 
 class TestSystemInfo(unittest.TestCase):
@@ -24,6 +24,49 @@ class TestSystemInfo(unittest.TestCase):
 
 
 class TestReportGenerator(unittest.TestCase):
+
+
+
+    def test_export_txt_creates_report(self):
+        import tempfile
+        import os
+
+        findings = {
+            "System Information": {
+                "hostname": "test-host",
+                "kernel": "6.1.0",
+                "whoami": "tester"
+            },
+            "SUID/SGID Binaries": {
+                "suid_binaries": [],
+                "sgid_binaries": [],
+                "exploitable_suid": [],
+                "unexpected_suid": [],
+                "capabilities": ["python3 cap_setuid+ep"]
+            }
+        }
+
+        generator = ReportGenerator(
+            findings,
+            datetime.now(),
+            1.5
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            report_path = os.path.join(temp_dir, "audit.txt")
+
+            generator.export_txt(report_path)
+
+            self.assertTrue(os.path.exists(report_path))
+
+            with open(report_path, "r", encoding="utf-8") as file:
+                report = file.read()
+
+            self.assertIn("LINUX PRIVILEGE ESCALATION AUDIT REPORT", report)
+            self.assertIn("SYSTEM INFORMATION", report)
+            self.assertIn("SUID / SGID ANALYSIS", report)
+            self.assertIn("Linux Capabilities:", report)
+            self.assertIn("python3 cap_setuid+ep", report)
 
     def test_total_findings_counts_lists(self):
         findings = {
