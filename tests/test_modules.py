@@ -4,6 +4,8 @@ from modules.system_info import SystemInfoScanner
 from modules.suid_scanner import SUIDScanner
 from unittest.mock import patch
 import subprocess
+from modules.report_generator import ReportGenerator
+from datetime import datetime
 
 
 class TestSystemInfo(unittest.TestCase):
@@ -19,6 +21,50 @@ class TestSystemInfo(unittest.TestCase):
         result = scanner.scan()
 
         self.assertIn("kernel", result)
+
+
+class TestReportGenerator(unittest.TestCase):
+
+    def test_total_findings_counts_lists(self):
+        findings = {
+            "SUID/SGID Binaries": {
+                "suid_binaries": [{"path": "/usr/bin/example"}],
+                "sgid_binaries": [{"path": "/usr/bin/example2"}],
+                "exploitable_suid": [],
+                "unexpected_suid": [],
+                "capabilities": ["cap_setuid+ep"]
+            }
+        }
+
+        generator = ReportGenerator(
+            findings,
+            datetime.now(),
+            1.0
+        )
+
+        self.assertEqual(generator.total_findings(), 3)
+
+    def test_suid_report_includes_capabilities(self):
+        findings = {
+            "SUID/SGID Binaries": {
+                "suid_binaries": [],
+                "sgid_binaries": [],
+                "exploitable_suid": [],
+                "unexpected_suid": [],
+                "capabilities": ["/usr/bin/python3 cap_setuid+ep"]
+            }
+        }
+
+        generator = ReportGenerator(
+            findings,
+            datetime.now(),
+            1.0
+        )
+
+        report = generator._format_suid()
+
+        self.assertIn("Linux Capabilities:", report)
+        self.assertIn("cap_setuid+ep", report)        
 
 
 class TestSUIDScanner(unittest.TestCase):
