@@ -138,6 +138,17 @@ class ReportGenerator:
 
                 output.append("")
 
+                        capabilities = data.get("capabilities", [])
+
+            if capabilities:
+                output.append("")
+                output.append("Linux Capabilities:")
+                for capability in capabilities:
+                output.append(f"  [HIGH] {capability}")
+            else:
+                output.append("")
+                output.append("Linux Capabilities: None detected")
+
         return "\n".join(output)
 
     def _format_permissions(self):
