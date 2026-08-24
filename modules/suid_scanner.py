@@ -87,6 +87,17 @@ class SUIDScanner:
     def __init__(self):
         self.findings = {}
 
+    def _classify_suid(self, name):
+        name = name.lower()
+
+        if name in GTFOBINS_SUID:
+            return "exploitable"
+
+        if name in STANDARD_SUID:
+            return "standard"
+
+        return "unexpected"
+
     def _run(self, cmd):
         try:
             result = subprocess.run(
@@ -97,9 +108,11 @@ class SUIDScanner:
                 timeout=60
             )
             return result.stdout.strip()
+
         except subprocess.TimeoutExpired:
             warn(f"Command timed out: {cmd}")
             return ""
+
         except OSError as exc:
             warn(f"Command execution failed: {exc}")
             return ""
@@ -112,32 +125,59 @@ class SUIDScanner:
             'unexpected_suid': [],
             'capabilities': [],
         }
+
         # SUID binaries
-        suid_raw = self._run("find / -perm -4000 -type f 2>/dev/null")
+        suid_raw = self._run(
+            "find / -perm -4000 -type f 2>/dev/null"
+        )
+
         for path in suid_raw.splitlines():
             path = path.strip()
+
             if not path:
                 continue
+
             name = os.path.basename(path)
-            entry = {'path': path, 'name': name}
+
+            entry = {
+                'path': path,
+                'name': name
+            }
+
             data['suid_binaries'].append(entry)
 
-            if name.lower() in GTFOBINS_SUID:
+            classification = self._classify_suid(name)
+
+            if classification == "exploitable":
                 entry['exploit'] = GTFOBINS_SUID[name.lower()]
-                entry['gtfobins'] = f"https://gtfobins.github.io/gtfobins/{name.lower()}/#suid"
+                entry['gtfobins'] = (
+                    f"https://gtfobins.github.io/gtfobins/"
+                    f"{name.lower()}/#suid"
+                )
                 data['exploitable_suid'].append(entry)
-            elif name.lower() not in STANDARD_SUID:
+
+            elif classification == "unexpected":
                 data['unexpected_suid'].append(entry)
 
         # SGID binaries
-        sgid_raw = self._run("find / -perm -2000 -type f 2>/dev/null")
+        sgid_raw = self._run(
+            "find / -perm -2000 -type f 2>/dev/null"
+        )
+
         for path in sgid_raw.splitlines():
             path = path.strip()
+
             if path:
-                data['sgid_binaries'].append({'path': path, 'name': os.path.basename(path)})
+                data['sgid_binaries'].append({
+                    'path': path,
+                    'name': os.path.basename(path)
+                })
 
         # Linux capabilities
-        cap_raw = self._run("getcap -r / 2>/dev/null")
+        cap_raw = self._run(
+            "getcap -r / 2>/dev/null"
+        )
+
         for line in cap_raw.splitlines():
             if line.strip():
                 data['capabilities'].append(line.strip())
@@ -147,26 +187,67 @@ class SUIDScanner:
 
     def display(self):
         d = self.findings
-        info(f"Total SUID binaries found : {len(d['suid_binaries'])}")
-        info(f"Total SGID binaries found : {len(d['sgid_binaries'])}")
+
+        info(
+            f"Total SUID binaries found : "
+            f"{len(d['suid_binaries'])}"
+        )
+
+        info(
+            f"Total SGID binaries found : "
+            f"{len(d['sgid_binaries'])}"
+        )
 
         if d['exploitable_suid']:
-            print(f"\n  {Colors.RED}{Colors.BOLD}⚠  EXPLOITABLE SUID BINARIES (GTFOBins Match):{Colors.RESET}")
+            print(
+                f"\n  {Colors.RED}{Colors.BOLD}"
+                f"⚠  EXPLOITABLE SUID BINARIES "
+                f"(GTFOBins Match):{Colors.RESET}"
+            )
+
             for b in d['exploitable_suid']:
                 finding('CRITICAL', f"{b['path']}")
-                print(f"           {Colors.YELLOW}Exploit → {b['exploit']}{Colors.RESET}")
-                print(f"           {Colors.CYAN}Reference: {b['gtfobins']}{Colors.RESET}")
+
+                print(
+                    f"           {Colors.YELLOW}"
+                    f"Exploit → {b['exploit']}"
+                    f"{Colors.RESET}"
+                )
+
+                print(
+                    f"           {Colors.CYAN}"
+                    f"Reference: {b['gtfobins']}"
+                    f"{Colors.RESET}"
+                )
+
         else:
             ok("No exploitable SUID binaries detected")
 
         if d['unexpected_suid']:
-            print(f"\n  {Colors.YELLOW}Unexpected SUID binaries (manual review required):{Colors.RESET}")
+            print(
+                f"\n  {Colors.YELLOW}"
+                f"Unexpected SUID binaries "
+                f"(manual review required):"
+                f"{Colors.RESET}"
+            )
+
             for b in d['unexpected_suid']:
-                finding('MEDIUM', f"{b['path']} – Check: https://gtfobins.github.io")
+                finding(
+                    'MEDIUM',
+                    f"{b['path']} – "
+                    f"Check: https://gtfobins.github.io"
+                )
 
         if d['capabilities']:
-            print(f"\n  {Colors.YELLOW}Linux Capabilities (potential escalation):{Colors.RESET}")
+            print(
+                f"\n  {Colors.YELLOW}"
+                f"Linux Capabilities "
+                f"(potential escalation):"
+                f"{Colors.RESET}"
+            )
+
             for cap in d['capabilities']:
                 finding('HIGH', f"Capability: {cap}")
+
         else:
             ok("No dangerous Linux capabilities found")
