@@ -1,18 +1,34 @@
-# 🔐 Linux Privilege Escalation Automation Toolkit
-
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
-![Bash](https://img.shields.io/badge/Bash-5.0%2B-green?style=for-the-badge&logo=gnu-bash)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Linux-orange?style=for-the-badge&logo=linux)
-![Security](https://img.shields.io/badge/Security-Red%20%7C%20Blue%20Team-red?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
+<!-- Animated Header -->
 
-**An automated Linux security auditing toolkit for detecting privilege escalation vectors.**  
-Built for authorized penetration testing and defensive security auditing.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,50:302b63,100:24243e&height=250&section=header&text=Linux%20Privilege%20Escalation%20Toolkit&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Automated%20Linux%20Security%20Auditing%20%7C%20Privilege%20Escalation%20Detection&descAlignY=60&descSize=17" width="100%"/>
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Modules](#-scanning-modules) • [Report](#-sample-output) • [References](#-references)
+<br>
+
+<a href="https://github.com/hrushikesh1199/linux-privesc-toolkit">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=8A2BE2&center=true&vCenter=true&width=800&lines=Automated+Linux+Security+Auditing;Privilege+Escalation+Detection;SUID%2FSGID+%7C+Cron+%7C+Sudo+%7C+Systemd;Kernel+CVE+Detection;Red+Team+Enumeration+%7C+Blue+Team+Hardening" alt="Typing SVG"/>
+</a>
+
+<br>
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge\&logo=python\&logoColor=white)](https://www.python.org/)
+[![Bash](https://img.shields.io/badge/Bash-5.0%2B-4EAA25?style=for-the-badge\&logo=gnu-bash\&logoColor=white)](https://www.gnu.org/software/bash/)
+[![Linux](https://img.shields.io/badge/Linux-Security-FCC624?style=for-the-badge\&logo=linux\&logoColor=black)](https://www.linux.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)](https://github.com/hrushikesh1199/linux-privesc-toolkit)
+
+<br><br>
+
+**An automated Linux security auditing toolkit for detecting privilege escalation vectors.**
+
+Built for **authorized penetration testing, security research, and defensive Linux auditing.**
+
+<br>
+
+[![GitHub Stars](https://img.shields.io/github/stars/hrushikesh1199/linux-privesc-toolkit?style=flat-square\&logo=github)](https://github.com/hrushikesh1199/linux-privesc-toolkit/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/hrushikesh1199/linux-privesc-toolkit?style=flat-square\&logo=github)](https://github.com/hrushikesh1199/linux-privesc-toolkit/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/hrushikesh1199/linux-privesc-toolkit?style=flat-square\&logo=github)](https://github.com/hrushikesh1199/linux-privesc-toolkit/issues)
 
 </div>
 
@@ -21,370 +37,580 @@ Built for authorized penetration testing and defensive security auditing.
 ## ⚠️ Legal Disclaimer
 
 > **This toolkit is intended STRICTLY for:**
-> - Educational purposes
-> - Authorized penetration testing (with written permission)
-> - Defensive security auditing on systems you own
 >
-> **Running this tool without explicit written authorization is ILLEGAL.**  
-> The author assumes **zero liability** for any unauthorized use.
+> * 🎓 Educational purposes
+> * 🛡️ Authorized penetration testing with written permission
+> * 🔍 Defensive security auditing on systems you own
+>
+> **Running this tool against systems without explicit authorization may be illegal.**
+>
+> The author assumes zero liability for unauthorized or malicious use.
 
 ---
 
-## 📌 Overview
+## 🎯 Overview
 
-The **Linux PrivEsc Automation Toolkit** is a professional-grade security auditing tool that automates the detection of privilege escalation vulnerabilities on Linux systems.
+**Linux PrivEsc Automation Toolkit** is a security auditing framework designed to automate the discovery of common Linux privilege escalation vectors.
 
-It reflects real-world **Red Team enumeration** and **Blue Team auditing** techniques used by security engineers in penetration testing and SOC operations.
+It combines **Red Team enumeration techniques** with **Blue Team security auditing** to identify dangerous configurations, vulnerable permissions, risky services, scheduled tasks, SUID/SGID binaries, Linux capabilities, and potentially vulnerable kernel versions.
 
-### What it does
-- Scans for **SUID/SGID binaries** and matches them against [GTFOBins](https://gtfobins.github.io)
-- Identifies **misconfigured file permissions** on sensitive files
-- Detects **vulnerable cron jobs** (writable scripts, wildcard injection, PATH hijack)
-- Audits **systemd services** for misconfigurations
-- Matches **kernel version** against a database of known CVEs
-- Generates structured **TXT + JSON security reports**
+### 🔎 What It Does
+
+| Security Area       | Detection                                                      |
+| ------------------- | -------------------------------------------------------------- |
+| 🔑 SUID / SGID      | Finds privileged binaries and GTFOBins matches                 |
+| 📂 File Permissions | Detects dangerous writable/readable system files               |
+| ⏰ Cron Jobs         | Identifies writable scripts, PATH hijacking and wildcard risks |
+| ⚙️ Systemd          | Audits privileged services and executable permissions          |
+| 🔐 Sudo             | Identifies dangerous `sudo` and `NOPASSWD` configurations      |
+| 🧠 Kernel           | Matches kernel versions against known CVEs                     |
+| 🐧 System Info      | Collects OS, user, groups, PATH and environment information    |
+| 📊 Reporting        | Generates structured TXT and JSON security reports             |
+
+---
+
+## ✨ Features
+
+* 🔍 Automated Linux enumeration
+* 🔑 SUID / SGID binary detection
+* 🧩 GTFOBins-based binary matching
+* 🛡️ Linux capability detection
+* 📂 Dangerous file permission analysis
+* ⏰ Cron security auditing
+* ⚙️ Systemd service analysis
+* 🔐 Sudo configuration auditing
+* 🧠 Kernel CVE detection
+* 🌐 PATH hijacking detection
+* 💉 `LD_PRELOAD` / environment variable checks
+* 📊 Automated TXT + JSON reporting
+* 🐚 Bash quick-scan support
+* 🧪 Unit testing support
+* 🎨 Colored terminal output
+
+---
+
+## 🏗️ Architecture
+
+```text
+                         ┌──────────────────────┐
+                         │   Linux System       │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                    ┌─────────────────────────────┐
+                    │    PrivEsc Toolkit          │
+                    │     privesc_toolkit.py      │
+                    └──────────────┬──────────────┘
+                                   │
+             ┌─────────────────────┼─────────────────────┐
+             │                     │                     │
+             ▼                     ▼                     ▼
+      ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+      │ System Info │       │ SUID / SGID │       │ Permissions │
+      └─────────────┘       └─────────────┘       └─────────────┘
+             │                     │                     │
+             └─────────────────────┼─────────────────────┘
+                                   │
+             ┌─────────────────────┼─────────────────────┐
+             │                     │                     │
+             ▼                     ▼                     ▼
+      ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+      │   Systemd   │       │ Cron Jobs   │       │ Kernel CVEs │
+      └─────────────┘       └─────────────┘       └─────────────┘
+                                   │
+                                   ▼
+                         ┌─────────────────────┐
+                         │ Security Findings   │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │ TXT + JSON Reports  │
+                         └─────────────────────┘
+```
 
 ---
 
 ## 🗂️ Project Structure
 
-```
+```text
 linux-privesc-toolkit/
 │
-├── privesc_toolkit.py          # Main entry point
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
+├── privesc_toolkit.py
+├── requirements.txt
+├── README.md
 │
-├── modules/                    # Core scanning modules
+├── modules/
 │   ├── __init__.py
-│   ├── banner.py               # Colors, display utilities
-│   ├── system_info.py          # System info collection
-│   ├── suid_scanner.py         # SUID/SGID + GTFOBins matching
-│   ├── permissions.py          # File permission analysis
-│   ├── services.py             # Service misconfiguration scanner
-│   ├── cron_scanner.py         # Cron job vulnerability analysis
-│   ├── kernel_cve.py           # Kernel CVE matching
-│   └── report_generator.py     # TXT + JSON report export
+│   ├── banner.py
+│   ├── system_info.py
+│   ├── suid_scanner.py
+│   ├── permissions.py
+│   ├── services.py
+│   ├── cron_scanner.py
+│   ├── kernel_cve.py
+│   └── report_generator.py
 │
 ├── scripts/
-│   ├── quick_scan.sh           # Bash rapid enumeration script
-│   └── setup.sh                # Installation & setup script
+│   ├── quick_scan.sh
+│   └── setup.sh
 │
-├── reports/                    # Generated reports (gitignored)
+├── reports/
 │   └── .gitkeep
 │
 ├── docs/
-│   └── detailed_report.md      # Full project documentation
+│   └── detailed_report.md
 │
 └── tests/
-    └── test_modules.py         # Unit tests
+    └── test_modules.py
 ```
 
 ---
 
-## ✅ Features
+# 🛠️ Installation
 
-| Module | Description | Severity Detection |
-|--------|-------------|-------------------|
-| 🖥️ System Info | OS, kernel, user, PATH, environment | HIGH |
-| 🔑 SUID/SGID | 50+ GTFOBins-matched exploitable binaries | CRITICAL |
-| 📂 Permissions | /etc/passwd, /etc/shadow, world-writable | CRITICAL |
-| ⚙️ Services | Systemd misconfigurations, sudo rules | CRITICAL |
-| ⏰ Cron Jobs | Writable scripts, wildcard injection | CRITICAL |
-| 💀 Kernel CVEs | 15+ known CVE checks (Dirty Cow, Dirty Pipe…) | CRITICAL |
-| 📊 Reports | Structured TXT and JSON export | — |
-
----
-
-## 🛠️ Installation
-
-### Prerequisites
+### Requirements
 
 ```bash
-# Required
-sudo apt update && sudo apt install python3 python3-pip -y
+sudo apt update
 
-# Recommended tools (for complete scan coverage)
+sudo apt install python3 python3-pip -y
+
 sudo apt install binutils libcap2-bin net-tools -y
 ```
 
-### Clone and Setup
+### Clone Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/hrushikesh1199/linux-privesc-toolkit.git
-cd linux-privesc-toolkit
 
-# Run setup script
+cd linux-privesc-toolkit
+```
+
+### Setup
+
+```bash
 chmod +x scripts/setup.sh
+
 bash scripts/setup.sh
 
-# Install Python dependencies
 pip3 install -r requirements.txt
 ```
 
 ---
 
-## 🚀 Usage
+# 🚀 Usage
 
-### Full Scan (Recommended: run as root for complete results)
+## Full Security Scan
+
+For maximum visibility, run with appropriate privileges on systems you are authorized to audit:
 
 ```bash
 sudo python3 privesc_toolkit.py
 ```
 
-### Scan a Specific Module
+---
+
+## 🔍 Scan Individual Modules
+
+### System Information
 
 ```bash
-# SUID binary scan only
-sudo python3 privesc_toolkit.py --module suid
-
-# Cron job analysis only
-sudo python3 privesc_toolkit.py --module cron
-
-# Kernel CVE check only
-sudo python3 privesc_toolkit.py --module kernel
-
-# File permission audit only
-sudo python3 privesc_toolkit.py --module perms
-
-# Service misconfiguration scan
-sudo python3 privesc_toolkit.py --module services
-
-# System information
 sudo python3 privesc_toolkit.py --module sysinfo
 ```
 
-### Export Reports
+### SUID / SGID
 
 ```bash
-# Export both TXT and JSON (default)
-sudo python3 privesc_toolkit.py --output reports/my_audit
-
-# Export JSON only
-sudo python3 privesc_toolkit.py --format json --output /tmp/audit
-
-# Quiet mode (suppress progress, just save report)
-sudo python3 privesc_toolkit.py --quiet --output reports/silent_scan
+sudo python3 privesc_toolkit.py --module suid
 ```
 
-### Bash Quick Scan
+### File Permissions
 
 ```bash
-# Fast bash-based enumeration (no Python needed)
-sudo bash scripts/quick_scan.sh
+sudo python3 privesc_toolkit.py --module perms
+```
 
-# Save output
+### Systemd Services
+
+```bash
+sudo python3 privesc_toolkit.py --module services
+```
+
+### Cron Jobs
+
+```bash
+sudo python3 privesc_toolkit.py --module cron
+```
+
+### Kernel CVEs
+
+```bash
+sudo python3 privesc_toolkit.py --module kernel
+```
+
+---
+
+# 📊 Report Generation
+
+### TXT + JSON
+
+```bash
+sudo python3 privesc_toolkit.py \
+  --output reports/my_audit
+```
+
+### JSON Only
+
+```bash
+sudo python3 privesc_toolkit.py \
+  --format json \
+  --output /tmp/audit
+```
+
+### Quiet Mode
+
+```bash
+sudo python3 privesc_toolkit.py \
+  --quiet \
+  --output reports/silent_scan
+```
+
+---
+
+# 🐚 Bash Quick Scan
+
+For lightweight enumeration:
+
+```bash
+sudo bash scripts/quick_scan.sh
+```
+
+Save results:
+
+```bash
 sudo bash scripts/quick_scan.sh | tee /tmp/quick_audit.txt
 ```
 
-### All Options
+---
 
-```
-usage: privesc_toolkit.py [-h] [--module MODULE] [--output PATH] [--format FORMAT] [--quiet] [--no-color] [--version]
+# ⚙️ Command Options
+
+```text
+usage: privesc_toolkit.py [-h]
+                          [--module MODULE]
+                          [--output PATH]
+                          [--format FORMAT]
+                          [--quiet]
+                          [--no-color]
+                          [--version]
 
 options:
-  --module   {sysinfo,suid,perms,services,cron,kernel}  Run single module
-  --output   PATH    Output path for report (no extension)
-  --format   {txt,json,both}   Report format (default: both)
-  --quiet             Suppress banner and progress output
-  --no-color          Disable colored output
-  --version           Show version
+
+  --module
+        {sysinfo,suid,perms,services,cron,kernel}
+
+  --output
+        PATH
+
+  --format
+        {txt,json,both}
+
+  --quiet
+        Suppress banner and progress output
+
+  --no-color
+        Disable colored output
+
+  --version
+        Show version
 ```
 
 ---
 
-## 🔍 Scanning Modules
+# 🔬 Scanning Modules
 
-### 1. System Information (`system_info.py`)
-**Commands:** `uname -a`, `id`, `whoami`, `hostname`, `env`, `sudo -l`
+## 1️⃣ System Information
+
+**Module:** `system_info.py`
 
 Collects:
-- Kernel version, OS distribution, architecture
-- Current user, groups, home directory
-- PATH analysis → detects **writable directories** (PATH hijacking)
-- Dangerous environment variables (`LD_PRELOAD`, `PYTHONPATH`)
-- Sudo privileges (`NOPASSWD` detection)
 
-### 2. SUID/SGID Scanner (`suid_scanner.py`)
-**Commands:** `find / -perm -4000`, `find / -perm -2000`, `getcap -r /`
-
-- Scans entire filesystem for SUID/SGID binaries
-- Matches against **50+ GTFOBins entries** with exploit commands
-- Detects **Linux capabilities** (`cap_setuid`, `cap_net_admin`, etc.)
-- Whitelist of standard SUID binaries to reduce false positives
-
-**Example GTFOBins matches:** `vim`, `find`, `python3`, `perl`, `awk`, `nmap`, `tar`, `env`
-
-### 3. File Permission Scanner (`permissions.py`)
-**Commands:** `find / -writable`, `stat /etc/passwd`, `ls -la /home`
-
-- Checks `/etc/passwd` (writable = add root user)
-- Checks `/etc/shadow` (readable = crack hashes)
-- Audits `/etc/sudoers`, `/etc/crontab`, SSH config
-- Identifies world-writable files in system paths
-- Scans home directory exposures
-
-### 4. Service Scanner (`services.py`)
-**Commands:** `systemctl`, `ps aux`, `sudo -l`
-
-- Parses all `.service` files in `/etc/systemd/system/`
-- Detects root services with **writable ExecStart binaries**
-- Identifies relative paths → **PATH hijacking** in services
-- Analyses sudo rules for dangerous patterns:
-  - `NOPASSWD` for shells, editors, interpreters
-  - `env_keep` for `LD_PRELOAD` (shared library injection)
-
-### 5. Cron Job Scanner (`cron_scanner.py`)
-**Commands:** `crontab -l`, `cat /etc/crontab`, `cat /etc/cron.d/*`
-
-Attack vectors detected:
-- **Writable scripts** executed by root cron
-- **Relative paths** without absolute binary → PATH hijack
-- **Wildcard injection** in `tar`, `chown`, `rsync`, `chmod`, `find`
-- **Writable parent directories** of cron scripts
-
-### 6. Kernel CVE Detection (`kernel_cve.py`)
-**Commands:** `uname -r`, `uname -a`, `cat /proc/version`
-
-Matches kernel version against **15+ known CVEs:**
-
-| CVE | Name | Severity | Affected Versions |
-|-----|------|----------|-------------------|
-| CVE-2022-0847 | **Dirty Pipe** | CRITICAL | 5.8 – 5.16.11 |
-| CVE-2016-5195 | **Dirty COW** | CRITICAL | 3.3 – 4.8.3 |
-| CVE-2014-3153 | **Futex Requeue** | CRITICAL | 3.3 – 3.16 |
-| CVE-2021-3156 | **Baron Samedit** | CRITICAL | sudo ≤ 1.9.5p1 |
-| CVE-2015-1328 | **OverlayFS** | HIGH | 3.13 – 3.19.3 |
-| CVE-2017-16995 | **eBPF Bug** | HIGH | 4.4 – 4.13 |
-| CVE-2019-13272 | **PTRACE** | HIGH | 4.14 – 5.10 |
-| CVE-2023-4147 | **Netfilter UAF** | CRITICAL | 4.0 – 6.5 |
+* Kernel version
+* Operating system
+* Architecture
+* Current user
+* Groups
+* Hostname
+* Home directory
+* PATH configuration
+* Writable PATH directories
+* Dangerous environment variables
+* `LD_PRELOAD`
+* `PYTHONPATH`
+* Sudo privileges
+* `NOPASSWD` rules
 
 ---
 
-## 📊 Sample Output
+## 2️⃣ SUID / SGID Scanner
 
+**Module:** `suid_scanner.py`
+
+Checks:
+
+```bash
+find / -perm -4000
+find / -perm -2000
+getcap -r /
 ```
-  ██████╗ ██████╗ ██╗██╗   ██╗███████╗███████╗ ██████╗
-  ██╔══██╗██╔══██╗██║██║   ██║██╔════╝██╔════╝██╔════╝
-  ██████╔╝██████╔╝██║██║   ██║█████╗  ███████╗██║
-  ██╔═══╝ ██╔══██╗██║╚██╗ ██╔╝██╔══╝  ╚════██║██║
-  ██║     ██║  ██║██║ ╚████╔╝ ███████╗███████║╚██████╗
-  ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝
 
-  Linux Privilege Escalation Automation Toolkit v1.0
+Detects:
 
-┌────────────────────────────────────────────────────────────┐
-│  SUID/SGID Binaries                                        │
-└────────────────────────────────────────────────────────────┘
-  [*] Total SUID binaries found : 14
-  ⚠  EXPLOITABLE SUID BINARIES (GTFOBins Match):
-  [CRITICAL] /usr/bin/vim
-           Exploit → vim -c ':!/bin/sh'
-           Reference: https://gtfobins.github.io/gtfobins/vim/#suid
+* SUID binaries
+* SGID binaries
+* Linux capabilities
+* Potentially dangerous privileged binaries
+* GTFOBins matches
 
-  [CRITICAL] /usr/bin/find
-           Exploit → find . -exec /bin/sh -p \; -quit
-           Reference: https://gtfobins.github.io/gtfobins/find/#suid
+Example binaries include:
 
-┌────────────────────────────────────────────────────────────┐
-│  Kernel CVE Detection                                      │
-└────────────────────────────────────────────────────────────┘
-  [*] Kernel Version : 5.10.0-26-amd64
-  [CRITICAL] CVE-2022-0847 – Dirty Pipe
-           Affects kernel 5.8 – 5.16.11
-           Reference: https://dirtypipe.cm4all.com
-
-[+] Text report saved  → reports/privesc_report_20241201_143022.txt
-[+] JSON report saved  → reports/privesc_report_20241201_143022.json
-[*] Scan completed in 42s | Total findings: 28
+```text
+vim
+find
+python3
+perl
+awk
+nmap
+tar
+env
 ```
 
 ---
 
-## 🔵 Blue Team Mitigations
+## 3️⃣ File Permission Scanner
 
-| Finding | Mitigation Command |
-|---------|-------------------|
-| Writable SUID binary | `chmod u-s /usr/bin/<binary>` |
-| World-writable /etc/passwd | `chmod 644 /etc/passwd` |
-| Readable /etc/shadow | `chmod 640 /etc/shadow && chown root:shadow /etc/shadow` |
-| NOPASSWD sudo | Edit `/etc/sudoers` → remove `NOPASSWD` |
-| Writable cron script | `chmod 700 /etc/cron.d/<script> && chown root:root` |
-| Outdated kernel | `sudo apt update && sudo apt dist-upgrade` |
-| LD_PRELOAD in sudo | Remove `env_keep+=LD_PRELOAD` from `/etc/sudoers` |
+**Module:** `permissions.py`
+
+Audits:
+
+```text
+/etc/passwd
+/etc/shadow
+/etc/sudoers
+/etc/crontab
+SSH configuration
+System directories
+Home directories
+World-writable files
+```
+
+The scanner identifies dangerous permission configurations that could contribute to privilege escalation.
 
 ---
 
-## 🧪 Running Tests
+## 4️⃣ Systemd Service Scanner
+
+**Module:** `services.py`
+
+Analyzes:
+
+```bash
+systemctl
+ps aux
+sudo -l
+```
+
+Checks for:
+
+* Root services
+* Writable service executables
+* Writable service directories
+* Relative executable paths
+* PATH hijacking opportunities
+* Dangerous sudo configurations
+* `LD_PRELOAD` related configurations
+
+---
+
+## 5️⃣ Cron Job Scanner
+
+**Module:** `cron_scanner.py`
+
+Analyzes:
+
+```bash
+crontab -l
+cat /etc/crontab
+cat /etc/cron.d/*
+```
+
+Checks for:
+
+* Writable root cron scripts
+* Relative executable paths
+* Writable parent directories
+* Unsafe wildcard usage
+* PATH hijacking conditions
+
+---
+
+## 6️⃣ Kernel CVE Detection
+
+**Module:** `kernel_cve.py`
+
+Collects:
+
+```bash
+uname -r
+uname -a
+cat /proc/version
+```
+
+The toolkit compares detected kernel information against a database of known vulnerabilities.
+
+Example CVEs included:
+
+| CVE            | Vulnerability | Severity |
+| -------------- | ------------- | -------- |
+| CVE-2022-0847  | Dirty Pipe    | CRITICAL |
+| CVE-2016-5195  | Dirty COW     | CRITICAL |
+| CVE-2014-3153  | Futex Requeue | CRITICAL |
+| CVE-2021-3156  | Baron Samedit | CRITICAL |
+| CVE-2015-1328  | OverlayFS     | HIGH     |
+| CVE-2017-16995 | eBPF Bug      | HIGH     |
+| CVE-2019-13272 | PTRACE        | HIGH     |
+| CVE-2023-4147  | Netfilter UAF | CRITICAL |
+
+---
+
+# 🖥️ Sample Output
+
+```text
+██████╗ ██████╗ ██╗██╗   ██╗███████╗███████╗ ██████╗
+██╔══██╗██╔══██╗██║██║   ██║██╔════╝██╔════╝██╔════╝
+██████╔╝██████╔╝██║██║   ██║█████╗  ███████╗██║
+██╔═══╝ ██╔══██╗██║╚██╗ ██╔╝██╔══╝  ╚════██║██║
+██║     ██║  ██║██║ ╚████╔╝ ███████╗███████║╚██████╗
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝
+
+Linux Privilege Escalation Automation Toolkit v1.0
+
+┌────────────────────────────────────────────────────────────┐
+│ SUID/SGID Binaries                                         │
+└────────────────────────────────────────────────────────────┘
+
+[*] Total SUID binaries found : 14
+
+[CRITICAL] Potentially dangerous SUID binary detected
+
+[+] Text report saved
+[+] JSON report saved
+
+[*] Scan completed
+```
+
+---
+
+# 🛡️ Blue Team Mitigations
+
+| Finding                         | Recommended Action                               |
+| ------------------------------- | ------------------------------------------------ |
+| Writable SUID binary            | Remove unnecessary SUID permissions              |
+| Writable `/etc/passwd`          | Restore secure ownership and permissions         |
+| Readable `/etc/shadow`          | Restrict access to privileged accounts           |
+| Dangerous NOPASSWD sudo         | Review and restrict sudo rules                   |
+| Writable cron script            | Restrict ownership and permissions               |
+| Outdated kernel                 | Apply security updates                           |
+| Unsafe service executable       | Restrict service file and executable permissions |
+| Dangerous environment variables | Review sudo environment configuration            |
+
+---
+
+# 🧪 Testing
+
+Run the test suite:
 
 ```bash
 cd linux-privesc-toolkit
+
 python3 -m pytest tests/ -v
 ```
 
 ---
 
-## 📚 References & Resources
+# 📚 References
 
-### Primary References
-- 🔗 [GTFOBins](https://gtfobins.github.io) – Unix binary exploit paths
-- 🔗 [HackTricks Linux PrivEsc](https://book.hacktricks.xyz/linux-hardening/privilege-escalation) – Comprehensive guide
-- 🔗 [LinPEAS](https://github.com/carlospolop/PEASS-ng) – Similar automated tool
-- 🔗 [Linux Kernel CVEs](https://www.linuxkernelcves.com) – Kernel vulnerability database
-- 🔗 [ExploitDB](https://www.exploit-db.com) – Exploit database
-- 🔗 [NVD – NIST](https://nvd.nist.gov) – National Vulnerability Database
-- 🔗 [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) – Hardening guides
-
-
-### Security Recommendations
-
-- Remove unnecessary SUID/SGID permissions
-- Restrict writable system files
-- Review cron jobs for unsafe configurations
-- Audit sudo permissions
-- Keep the Linux kernel updated
-- Review system service permissions
-
-### CVE References
-- 🔗 [Dirty Pipe (CVE-2022-0847)](https://dirtypipe.cm4all.com)
-- 🔗 [Dirty COW (CVE-2016-5195)](https://dirtycow.ninja)
-- 🔗 [Baron Samedit (CVE-2021-3156)](https://blog.qualys.com/vulnerabilities-threat-research/2021/01/26/cve-2021-3156)
+* [GTFOBins](https://gtfobins.github.io/) — Unix binary security reference
+* [HackTricks Linux Privilege Escalation](https://book.hacktricks.xyz/linux-hardening/privilege-escalation)
+* [PEASS-ng / LinPEAS](https://github.com/peass-ng/PEASS-ng)
+* [Linux Kernel CVEs](https://www.linuxkernelcves.com/)
+* [Exploit Database](https://www.exploit-db.com/)
+* [NVD](https://nvd.nist.gov/)
+* [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
 
 ---
 
-## 👨‍💻 Author
+# 🎯 Security Recommendations
 
-**Hrushikesh Pawar**  
-B.E. Electronics & Telecommunication | JSPM's JSCOE, Pune  
-Cybersecurity Enthusiast | SOC Analyst | Web App Pentester
+For defenders:
 
-[![GitHub](https://img.shields.io/badge/GitHub-hrushikesh1199-black?style=flat&logo=github)](https://github.com/hrushikesh1199)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hrushikesh20/)
+* Remove unnecessary SUID / SGID permissions
+* Restrict writable system files
+* Audit cron jobs regularly
+* Review sudo privileges
+* Harden systemd services
+* Restrict dangerous environment variables
+* Keep Linux kernels patched
+* Monitor privileged service configurations
+* Apply least-privilege principles
+* Regularly perform security audits
 
 ---
 
-## 📄 License
+# 👨‍💻 Author
 
-MIT License – See [LICENSE](LICENSE) for details.
+<div align="center">
+
+### Hrushikesh Pawar
+
+**B.E. Electronics & Telecommunication Engineering**
+JSPM's Jaywantrao Sawant College of Engineering, Pune
+
+**Cybersecurity Enthusiast | SOC Analyst | Web Application Pentester**
+
+<br>
+
+<a href="https://github.com/hrushikesh1199">
+<img src="https://img.shields.io/badge/GitHub-hrushikesh1199-181717?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+
+<a href="https://www.linkedin.com/in/hrushikesh20/">
+<img src="https://img.shields.io/badge/LinkedIn-Hrushikesh%20Pawar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
+
+</div>
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+See [LICENSE](LICENSE) for details.
 
 ---
 
 <div align="center">
-⭐ Star this repo if it helped you learn!  
-🔐 Use responsibly. Hack ethically.
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:24243e,50:302b63,100:0f0c29&height=120&section=footer" width="100%"/>
+
+### ⭐ Star this repository if it helped you learn!
+
+**🔐 Use responsibly. Hack ethically.**
+
+<br>
+
+`Built for Security Research • Authorized Pentesting • Defensive Auditing`
+
 </div>
-
-
-
-
-## Key Features
-
-- SUID and SGID binary detection
-- Dangerous file permission analysis
-- Cron job security checks
-- Systemd service analysis
-- Sudo configuration auditing
-- Kernel vulnerability and CVE checks
-- Automated security findings
-- JSON and TXT report generation
