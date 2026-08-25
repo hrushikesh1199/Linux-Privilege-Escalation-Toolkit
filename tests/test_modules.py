@@ -145,5 +145,23 @@ class TestSUIDScanner(unittest.TestCase):
         self.assertEqual(result, "")
 
 
+    def test_classify_suid(self):
+        scanner = SUIDScanner()
+
+        self.assertEqual(
+            scanner._classify_suid("bash"),
+            "exploitable"
+    )
+
+        self.assertEqual(
+            scanner._classify_suid("sudo"),
+            "standard"
+    )
+
+        self.assertEqual(
+            scanner._classify_suid("unknown_binary"),
+            "unexpected"
+    )
+
 if __name__ == "__main__":
     unittest.main()
